@@ -1,38 +1,38 @@
 const conResponse = {
     registerExists :{
         success : false,
-        errorCode : 409,
-        message : "user with the same email or username already exists."
+        statusCode : 409,
+        message : "User with the same mobile number already exists."
     },
     registerMessage: {
         success: true,
-        statusCode: 201,
+        statusCode: 200,
         message: "Registration successfull"
     },
     internalServerError: {
         success: "false",
-        errorCode: 500,
+        statusCode: 500,
         message: "Interval server error. We are looking into this."
     },
     fieldMissingError: {
         success: false,
-        errorCode: 'PSE: 1001',
-        message: 'required fields are missing'
+        statusCode: 'PSE: 1001',
+        message: 'Required fields are missing'
     },
     mobileAndPasswordError: {
         success: false,
-        errorCode: 400,
-        message: "Mobile number shuold be 10 digit and password len should be 8 digit"
+        statusCode: 400,
+        message: "Mobile number shuold be 10 digit and password length should be 8 digit"
     },
     dataMissingError :{
         success : false,
-        errorCode : 404,
-        message : "data is not existing or missing"
+        statusCode : 404,
+        message : "Data is not existing or missing"
     },
     registerBookExist:{
         success : false,
-        errorCode : 409,
-        message : "same books already exists."
+        statusCode : 409,
+        message : "Same books already exists."
     },
     bookIssue:{
         success : true,
@@ -42,12 +42,12 @@ const conResponse = {
     bookNotAvailable :{
         success : false,
         statusCode : 404,
-        message : "book not available"
+        message : "Book not available"
     },
     issueBookExist:{
         success : false,
-        errorCode : 409,
-        message : "same books already issued"
+        statusCode : 409,
+        message : "Same books already issued"
     },
     returnIssueBook : {
         success : true,
@@ -56,13 +56,28 @@ const conResponse = {
     },
     returnBookExist:{
         success : false,
-        errorCode : 409,
-        message : "same books already submitted"
+        statusCode : 409,
+        message : "Same books already submitted"
     },
     deleteBook :{
         success : true ,
         statusCode : 200 ,
         message : "Book deleted successfully"
+    },
+    bookNotExist :{
+        success : false ,
+        statusCode : 404,
+        message : "Book not found"
+    },
+    returnBookError :{
+        success : false ,
+        statusCode : 404,
+        message : "No member should be retuned"
+    },
+    issueBookError :{
+        success : false ,
+        statusCode : 404,
+        message : "No member should be issued any book"
     }
 
 }
