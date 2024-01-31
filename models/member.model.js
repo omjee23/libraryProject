@@ -1,6 +1,7 @@
 const { dbConstants } = require("../constants/db.constants");
 const constResponse = require("../constants/cons.response");
 const { connecToDb } = require("../models/db.model");
+const { ObjectId } = require('mongodb');
 
 const registerMember = async (memberDetail) => {
   try {
@@ -29,7 +30,7 @@ const getMembersData = async () => {
     if (registerData) {
       return registerData;
     } else {
-      return constResponse.dataMissingError;
+      return constResponse.memberNotExist;
     }
   } catch (error) {
     console.error("data missing error", error);
@@ -37,31 +38,33 @@ const getMembersData = async () => {
   }
 };
 
-const updateMember = async (updateMember) => {
+const updateMember = async (updateMember , memberId) => {
   try {
+    console.log(updateMember ,"babujnjdn" , memberId);
     const dbconn = await connecToDb();
     const dbCollection = dbconn.collection(dbConstants.membersCollection);
     const updateData = await dbCollection.findOneAndUpdate(
-      { mobileNumber: updateMember.mobileNumber },
-      { $set: updateMember },
+      { _id : new ObjectId(memberId) },
+      { $set: {fullName : updateMember.fullName} },
       { returnDocument: "after" }
     );
-    return updateData;
+    console.log(updateData , "ramam rate rate");
+    return constResponse.updateMemberData;
   } catch (error) {
     console.error("data is not update", error);
     return constResponse.internalServerError;
   }
 };
 
-const deleteMember = async (deleteData) => {
+const deleteMember = async ( memberId) => {
   try {
     const dbconn = await connecToDb();
     const dbCollection = dbconn.collection(dbConstants.membersCollection);
     const deleteMember = await dbCollection.findOneAndDelete(
-      { mobileNumber: deleteData.mobileNumber },
+      {_id : new ObjectId(memberId) },
       { returnDocument: "after" }
     );
-    return deleteMember;
+    return constResponse.deleteMemberData;
   } catch (error) {
     console.error("Member data is not delete", error);
     return constResponse.internalServerError;

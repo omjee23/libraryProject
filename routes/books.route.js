@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.post("/books", bookCon.registerDetail);
 router.get("/books", bookCon.registerBookDetail);
-router.put("/books", bookCon.updateBook);
+router.put("/books/:bookId", bookCon.updateBook);
 router.delete("/book/:bookId", bookCon.deleteBook);
 
 module.exports = router;

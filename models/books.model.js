@@ -1,13 +1,14 @@
 const { dbConstants } = require("../constants/db.constants");
 const constResponse = require("../constants/cons.response");
 const { connecToDb } = require("../models/db.model");
+const { ObjectId } = require('mongodb');
 
 const booksRegister = async (bookDetail) => {
   try {
     const dbconn = await connecToDb();
     const dbCollection = dbconn.collection(dbConstants.bookCollection);
     const bookRegisterData = await dbCollection.findOne({
-      bookId: bookDetail.bookId,
+      bookNo: bookDetail.bookNo,
     });
     if (bookRegisterData) {
       return constResponse.registerBookExist;
@@ -37,30 +38,36 @@ const getRegisteredBook = async () => {
   }
 };
 
-const updateBookData = async (bookData) => {
+const updateBookData = async (bookData , bookId) => {
   try {
     const dbconn = await connecToDb();
     const dbCollection = dbconn.collection(dbConstants.bookCollection);
     const updateBook = await dbCollection.findOneAndUpdate(
-      { bookId: bookData.bookId },
+      { _id: new ObjectId (bookId) },
       { $set: bookData },
       { returnDocument: "after" }
     );
-    return updateBook;
+    console.log(bookId , "dfghjkkjhgfdsdfg");
+    return constResponse.bookUpdateSuccess;
   } catch (error) {
     console.error("Error updating book data :", error);
     return constResponse.internalServerError;
   }
 };
 
-const deleteBookData = async (bookData) => {
+const deleteBookData = async (bookId) => {
   try {
     const dbconn = await connecToDb();
     const dbCollection = dbconn.collection(dbConstants.bookCollection);
     const deleteBook = await dbCollection.deleteOne({
-      bookId: parseInt(bookData),
+      _id: new ObjectId (bookId),
     });
-    return constResponse.deleteBook;
+    if (deleteBook.deletedCount === 1 ){
+      return constResponse.deleteBook;
+    }
+    else {
+      return constResponse.bookNotExist;
+    }
   } catch (error) {
     console.error("book data is not delete", error);
     return constResponse.internalServerError;

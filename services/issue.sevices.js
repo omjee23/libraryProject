@@ -3,10 +3,7 @@ const issuemodel = require("../models/issue.model");
 
 const issueBookValidation = function (issueDetails) {
   if (
-    !issueDetails.bookId ||
-    !issueDetails.bookName ||
-    !issueDetails.author ||
-    !issueDetails.genre ||
+    !issueDetails.bookNo ||
     !issueDetails.memberDetails
   ) {
     return constResponse.fieldMissingError;
@@ -16,10 +13,7 @@ const issueBookValidation = function (issueDetails) {
 
 const returnBookValidation = function (returnBook) {
   if (
-    !returnBook.bookId ||
-    !returnBook.bookName ||
-    !returnBook.author ||
-    !returnBook.genre ||
+    !returnBook.bookNo ||
     !returnBook.memberDetails
   ) {
     return constResponse.fieldMissingError;

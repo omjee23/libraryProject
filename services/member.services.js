@@ -2,17 +2,10 @@ const memberModel = require("../models/member.model");
 const constResponse = require("../constants/cons.response");
 
 const memberRegisterValidation = function (memberData) {
-  if (
-    !memberData.fullName ||
-    !memberData.mobileNumber ||
-    !memberData.password
-  ) {
+  if (!memberData.fullName || !memberData.mobileNumber) {
     return constResponse.fieldMissingError;
   }
-  if (
-    memberData.mobileNumber.length !== 10 ||
-    memberData.password.length !== 8
-  ) {
+  if (memberData.mobileNumber.length !== 10) {
     return constResponse.mobileAndPasswordError;
   }
   return memberModel.registerMember(memberData);
@@ -22,31 +15,18 @@ const memberDetailValidation = function () {
   return memberModel.getMembersData();
 };
 
-const updateMemberValidation = function (memberData) {
-  if (
-    !memberData.fullName ||
-    !memberData.mobileNumber ||
-    !memberData.password
-  ) {
+const updateMemberValidation = function (memberData, memberId) {
+  if (!memberId || !memberData) {
     return constResponse.fieldMissingError;
   }
-  if (
-    memberData.mobileNumber.length !== 10 ||
-    memberData.password.length !== 8
-  ) {
-    return constResponse.mobileAndPasswordError;
-  }
-  return memberModel.updateMember(memberData);
+  return memberModel.updateMember(memberData, memberId);
 };
 
-const deleteMemberValidation = function (memberData) {
-  if (!memberData.mobileNumber) {
+const deleteMemberValidation = function ( memberId) {
+  if (!memberId) {
     return constResponse.fieldMissingError;
   }
-  if (memberData.mobileNumber.length !== 10) {
-    return constResponse.mobileAndPasswordError;
-  }
-  return memberModel.deleteMember(memberData);
+  return memberModel.deleteMember(memberId);
 };
 
 module.exports = {

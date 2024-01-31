@@ -13,14 +13,15 @@ const registerMemberDetail = async (req, res) => {
 };
 
 const updateMemberDetail = async (req, res) => {
+  const memberId = req.params.memberId;
   const details = req.body;
-  const updateMemberinfo = await memberService.updateMemberValidation(details);
+  const updateMemberinfo = await memberService.updateMemberValidation(details , memberId);
   res.send(updateMemberinfo);
 };
 
 const deleteMemberDetail = async (req, res) => {
-  const details = req.body;
-  const deleteMember = await memberService.deleteMemberValidation(details);
+  const memberId = req.params.memberId;
+  const deleteMember = await memberService.deleteMemberValidation(memberId);
   res.send(deleteMember);
 };
 

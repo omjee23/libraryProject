@@ -78,6 +78,26 @@ const conResponse = {
         success : false ,
         statusCode : 404,
         message : "No member should be issued any book"
+    },
+    bookUpdateSuccess :{
+        success : true ,
+        statusCode : 200,
+        message : "Book updated successfully"
+    },
+    updateMemberData : {
+        success : true ,
+        statusCode : 200,
+        message : "Member updated successfully"
+    },
+    deleteMemberData : {
+        success : true ,
+        statusCode : 200,
+        message : "Member deleted successfully"
+    },
+    memberNotExist :{
+        success : false ,
+        statusCode : 404,
+        message : "No User response "
     }
 
 }

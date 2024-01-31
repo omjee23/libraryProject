@@ -3,7 +3,7 @@ const bookModel = require("../models/books.model");
 
 const bookRegisterValidation = function (bookData) {
   if (
-    !bookData.bookId ||
+    !bookData.bookNo ||
     !bookData.bookName ||
     !bookData.author ||
     !bookData.price ||
@@ -18,24 +18,20 @@ const getBookValidation = function () {
   return bookModel.getRegisteredBook();
 };
 
-const updateBookValidation = function (bookData) {
+const   updateBookValidation = function (bookData , bookId) {
   if (
-    !bookData.bookId ||
-    !bookData.bookName ||
-    !bookData.author ||
-    !bookData.price ||
-    !bookData.genre ||
-    !bookData.status
+    !bookId|| !bookData
   ) {
     return constResponse.fieldMissingError;
   }
-  return bookModel.updateBookData(bookData);
+  return bookModel.updateBookData(bookData , bookId);
 };
-const deleteBookValidation = function (bookData) {
-  if (!bookData) {
+
+const deleteBookValidation = function (bookId) {
+  if (!bookId) {
     return constResponse.fieldMissingError;
   }
-  return bookModel.deleteBookData(bookData);
+  return bookModel.deleteBookData(bookId);
 };
 
 module.exports = {

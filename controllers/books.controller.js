@@ -13,8 +13,9 @@ const registerBookDetail = async (req, res) => {
 };
 
 const updateBook = async (req, res) => {
+  const bookId = req.params.bookId;
   const bookData = req.body;
-  const bookInfo = await bookservice.updateBookValidation(bookData);
+  const bookInfo = await bookservice.updateBookValidation(bookData , bookId);
   res.send(bookInfo);
 };
 
